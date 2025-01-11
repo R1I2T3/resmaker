@@ -3,14 +3,14 @@ import React from "react";
 import { GoogleIcon } from "./icons";
 import { GithubIcon } from "lucide-react";
 import { Button } from "@/client/components/ui/button";
-import { authClient } from "@/client/lib/auth";
+import { signIn } from "@/client/lib/auth";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 const SignOnForm = () => {
   const GithubSignIn = useMutation({
     mutationFn: async () => {
-      await authClient.signIn.social({
+      await signIn.social({
         provider: "github",
       });
     },
@@ -20,7 +20,7 @@ const SignOnForm = () => {
   });
   const GoogleSignIn = useMutation({
     mutationFn: async () => {
-      await authClient.signIn.social({
+      await signIn.social({
         provider: "google",
       });
     },

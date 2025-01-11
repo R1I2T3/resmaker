@@ -12,7 +12,7 @@ const ResMakerIcon = () => (
       cy="100"
       r="95"
       fill="#f0f4ff"
-      stroke="#3a76f0"
+      stroke="#ed5f00"
       strokeWidth="5"
     ></circle>
     <rect
@@ -21,17 +21,17 @@ const ResMakerIcon = () => (
       x="60"
       y="50"
       fill="#fff"
-      stroke="#3a76f0"
+      stroke="#ed5f00"
       strokeWidth="3"
       rx="10"
     ></rect>
     <path
-      stroke="#3a76f0"
+      stroke="#ed5f00"
       strokeLinecap="round"
       strokeWidth="3"
       d="M70 70h60M70 90h60M70 110h40"
     ></path>
-    <circle cx="140" cy="140" r="15" fill="#3a76f0"></circle>
+    <circle cx="140" cy="140" r="15" fill="#ed5f00"></circle>
     <circle cx="140" cy="140" r="7" fill="#fff"></circle>
     <path
       stroke="#fff"
