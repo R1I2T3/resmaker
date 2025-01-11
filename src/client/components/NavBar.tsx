@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ModeToggle } from "./theme-toggle";
 const NavBar = () => {
   return (
-    <nav className="flex justify-between items-center flex-wrap  px-4 py-3 bg-[#ed5f00]">
+    <nav className="flex justify-between items-center flex-wrap  px-4 py-3 bg-[#ed5f00] w-full">
       <div className="flex items-center flex-shrink-0 text-white mr-6 gap-3">
         <ResMakerIcon />
         <h1 className="text-2xl font-bold leading-[6px] hidden lg:block">
