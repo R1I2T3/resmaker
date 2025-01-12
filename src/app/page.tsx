@@ -15,7 +15,7 @@ export default async function Home() {
         <div className="w-full flex flex-col items-center justify-center py-10 max-w-4xl mx-auto">
           <Link
             className="rounded-full flex items-center font- font-medium gap-1 text-sm h-auto p-2 bg-muted max-w-80"
-            href={data?.user ? "/" : "/auth/sign-on"}
+            href={data?.user ? "/dashboard/" : "/auth/sign-on"}
           >
             <div className="p-2 h-5 shrink-0 flex items-center text-xs justify-center text-white bg-primary rounded-full">
               New
@@ -42,7 +42,7 @@ export default async function Home() {
             <br />
             <div className="flex items-center gap-2">
               <Button className="h-12 text-base font-medium min-w-32" asChild>
-                <Link href={data?.user ? "/" : "/auth/sign-on"}>
+                <Link href={data?.user ? "/dashboard/" : "/auth/sign-on"}>
                   Get Started
                 </Link>
               </Button>
