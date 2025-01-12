@@ -5,11 +5,16 @@ import { HTTPException } from "hono/http-exception";
 import { resumesRoutes } from "@/server/features/resume/route";
 import { auth } from "@/server/auth";
 import { cors } from "hono/cors";
-export const runtime = "edge";
+import { User } from "better-auth";
+export type Variables = {
+  user: User | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  session: any | null;
+};
+const app = new Hono<{ Variables: Variables }>().basePath("/api");
 
-export const app = new Hono();
 app.use(
-  "/api/auth/**",
+  "/auth/**",
   cors({
     origin: "http://localhost:3000",
     allowHeaders: ["Content-Type", "Authorization"],
@@ -22,7 +27,7 @@ app.use(
 app.route("/api", resumesRoutes);
 
 app.use("*", logger());
-app.on(["POST", "GET"], "/api/auth/**", (c) => {
+app.on(["POST", "GET"], "/auth/**", (c) => {
   return auth.handler(c.req.raw);
 });
 app.onError((err, c) => {
@@ -31,8 +36,22 @@ app.onError((err, c) => {
   }
   return c.json({ error: "internal error" });
 });
+const handler = handle(app);
 
-export const GET = handle(app);
-export const POST = handle(app);
-export const PUT = handle(app);
-export const DELETE = handle(app);
+export async function GET(req: Request) {
+  return handler(req);
+}
+export async function POST(req: Request) {
+  return handler(req);
+}
+export async function PUT(req: Request) {
+  return handler(req);
+}
+export async function DELETE(req: Request) {
+  return handler(req);
+}
+export async function PATCH(req: Request) {
+  return handler(req);
+}
+
+export const runtime = "edge";

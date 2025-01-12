@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import { auth } from "../../auth";
-import { User } from "better-auth";
 import { zValidator } from "@hono/zod-validator";
 import {
   createDocumentTableSchema,
@@ -10,11 +9,7 @@ import {
 import { db } from "@/server/db";
 import { and, desc, eq, ne } from "drizzle-orm";
 import { z } from "zod";
-type Variables = {
-  user: User | null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  session: any | null;
-};
+import { Variables } from "@/app/api/[[...route]]/route";
 
 export const resumesRoutes = new Hono<{ Variables: Variables }>().basePath(
   "/resumes"
@@ -30,9 +25,6 @@ resumesRoutes.use("*", async (c, next) => {
   c.set("user", session.user);
   c.set("session", session.session);
   return next();
-});
-resumesRoutes.get("/", (c) => {
-  return c.json({ message: "GET resumes" });
 });
 
 resumesRoutes.post(
