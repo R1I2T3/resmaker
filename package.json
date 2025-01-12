@@ -10,6 +10,7 @@
     "db:push": "drizzle-kit --config=./drizzle.config.ts push"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.4.2",
     "@neondatabase/serverless": "^0.10.4",
     "@radix-ui/react-dropdown-menu": "^2.1.4",
     "@radix-ui/react-slot": "^1.1.1",
