@@ -25,7 +25,7 @@ app.use(
   })
 );
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const routes = app.route("/api", resumesRoutes);
+const routes = app.route("/api/resumes", resumesRoutes);
 export type AppRouterType = typeof routes;
 app.use("*", logger());
 app.on(["POST", "GET"], "*", (c) => {

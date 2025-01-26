@@ -6,14 +6,16 @@ import { InferRequestType, InferResponseType } from "hono";
 import { toast } from "sonner";
 
 type RequestType = InferRequestType<
-  typeof apiClient.restore.archive.$put
+  typeof apiClient.resumes.restore.archive.$put
 >["json"];
-type ResponseType = InferResponseType<typeof apiClient.restore.archive.$put>;
+type ResponseType = InferResponseType<
+  typeof apiClient.resumes.restore.archive.$put
+>;
 const useRestore = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await apiClient.restore.archive.$put({ json });
+      const response = await apiClient.resumes.restore.archive.$put({ json });
       return await response.json();
     },
     onSuccess: () => {

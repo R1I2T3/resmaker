@@ -7,7 +7,9 @@ const useGetDocuments = (isTrash: boolean) => {
   const query = useQuery({
     queryKey,
     queryFn: async () => {
-      const endPoint = isTrash ? apiClient.trash.all : apiClient.all;
+      const endPoint = isTrash
+        ? apiClient.resumes.trash.all
+        : apiClient.resumes.all;
       const response = await endPoint.$get();
       if (!response.ok) {
         throw new Error("Failed to get documents");

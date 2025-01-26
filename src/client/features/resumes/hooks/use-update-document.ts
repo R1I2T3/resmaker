@@ -5,9 +5,11 @@ import { apiClient } from "@/client/lib/hono-rpc";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 import { useParams } from "next/navigation";
-type ResponseType = InferResponseType<(typeof apiClient.update)[":id"]["$put"]>;
+type ResponseType = InferResponseType<
+  (typeof apiClient.resumes.update)[":id"]["$put"]
+>;
 type RequestType = InferRequestType<
-  (typeof apiClient.update)[":id"]["$put"]
+  (typeof apiClient.resumes.update)[":id"]["$put"]
 >["json"];
 
 const useUpdateDocument = () => {
@@ -17,7 +19,7 @@ const useUpdateDocument = () => {
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await apiClient.update[":id"].$put({
+      const response = await apiClient.resumes.update[":id"].$put({
         param: {
           id: documentId,
         },
