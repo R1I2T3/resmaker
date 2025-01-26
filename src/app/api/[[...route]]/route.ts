@@ -14,9 +14,9 @@ export type Variables = {
 const app = new Hono<{ Variables: Variables }>().basePath("/api");
 
 app.use(
-  "/auth/**",
+  "/api/auth/**",
   cors({
-    origin: "http://localhost:3000",
+    origin: "*",
     allowHeaders: ["Content-Type", "Authorization"],
     allowMethods: ["POST", "GET", "OPTIONS"],
     exposeHeaders: ["Content-Length"],
@@ -27,7 +27,7 @@ app.use(
 app.route("/api", resumesRoutes);
 
 app.use("*", logger());
-app.on(["POST", "GET"], "/auth/**", (c) => {
+app.on(["POST", "GET"], "*", (c) => {
   return auth.handler(c.req.raw);
 });
 app.onError((err, c) => {
@@ -53,5 +53,4 @@ export async function DELETE(req: Request) {
 export async function PATCH(req: Request) {
   return handler(req);
 }
-
 export const runtime = "edge";

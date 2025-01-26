@@ -10,7 +10,9 @@ import { User } from "better-auth";
 import { CircleUserRound } from "lucide-react";
 import { signOut } from "../lib/auth";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 const UserProfile = ({ user }: { user: User }) => {
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -32,7 +34,14 @@ const UserProfile = ({ user }: { user: User }) => {
           <a href="/profile">Profile</a>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <button onClick={() => signOut()}>Sign out</button>
+          <button
+            onClick={() => {
+              signOut();
+              router.replace("/auth/sign-on");
+            }}
+          >
+            Sign out
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

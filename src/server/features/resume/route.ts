@@ -114,3 +114,5 @@ resumesRoutes.get(
     return c.json({ success: true, data });
   }
 );
+
+export type AppType = typeof resumesRoutes;

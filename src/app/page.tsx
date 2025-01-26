@@ -8,7 +8,6 @@ export default async function Home() {
   const data = await auth.api.getSession({
     headers: await headers(),
   });
-
   return (
     <div className="w-full">
       <div className="hero-section">
