@@ -14,7 +14,8 @@ const useCreateDocument = () => {
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
       const response = await apiClient.resumes.create.$post({ json });
-      return await response.json();
+      const data = await response.json();
+      return data;
     },
     onSuccess: (response) => {
       console.log(response);
