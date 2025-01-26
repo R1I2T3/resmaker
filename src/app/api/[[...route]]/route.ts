@@ -11,7 +11,7 @@ export type Variables = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   session: any | null;
 };
-const app = new Hono<{ Variables: Variables }>().basePath("/api");
+const app = new Hono<{ Variables: Variables }>();
 
 app.use(
   "/api/auth/**",
@@ -24,8 +24,9 @@ app.use(
     credentials: true,
   })
 );
-app.route("/api", resumesRoutes);
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const routes = app.route("/api", resumesRoutes);
+export type AppRouterType = typeof routes;
 app.use("*", logger());
 app.on(["POST", "GET"], "*", (c) => {
   return auth.handler(c.req.raw);
