@@ -5,7 +5,7 @@ import React, { Fragment } from "react";
 import ResumeItem from "./ResumeItem";
 import { ResumeType } from "./ResumeItem";
 const ResumeList = () => {
-  const { data, isLoading, isError, refetch } = useGetDocuments(false);
+  const { data, isLoading, isError, refetch } = useGetDocuments(true);
   const resumes = data?.data ?? [];
   return (
     <Fragment>
@@ -32,8 +32,8 @@ const ResumeList = () => {
         <>
           {resumes?.map((resume: ResumeType) => (
             <ResumeItem
-              key={resume.documentId}
-              documentId={resume.documentId}
+              key={resume.id}
+              id={resume.id}
               title={resume.title}
               status={resume.status}
               updatedAt={resume.updatedAt}

@@ -17,7 +17,7 @@ import useRestore from "../hooks/use-restore";
 import { toast } from "sonner";
 const TrashListBox = () => {
   const router = useRouter();
-  const { data, isLoading } = useGetDocuments(true);
+  const { data, isLoading } = useGetDocuments(false);
   const { mutateAsync, isPending } = useRestore();
   const [search, setSearch] = useState<string>("");
   const resumes = data?.data ?? [];
@@ -48,7 +48,7 @@ const TrashListBox = () => {
   };
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           className="text-[15px] gap-[2px]
            items-center"

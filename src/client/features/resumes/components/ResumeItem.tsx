@@ -5,7 +5,7 @@ import { Dot, EllipsisVertical, FileText, Globe, Lock } from "lucide-react";
 import Image from "next/image";
 
 export type ResumeType = {
-  documentId: string;
+  id: string;
   title: string;
   status: "archived" | "private" | "public";
   themeColor: string | null;
@@ -14,7 +14,7 @@ export type ResumeType = {
 };
 
 const ResumeItem: FC<ResumeType> = ({
-  documentId,
+  id,
   status,
   title,
   themeColor,
@@ -30,8 +30,8 @@ const ResumeItem: FC<ResumeType> = ({
   }, [updatedAt]);
 
   const gotoDoc = useCallback(() => {
-    router.push(`/dashboard/document/${documentId}/edit`);
-  }, [router, documentId]);
+    router.push(`/dashboard/${id}/`);
+  }, [router, id]);
 
   return (
     <div
