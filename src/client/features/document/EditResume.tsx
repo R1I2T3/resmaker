@@ -1,5 +1,7 @@
 import React from "react";
 import TopOption from "./TopOption";
+import ResumeForm from "./ResumeForm";
+import ResumePreview from "./ResumePreview";
 const EditResume = () => {
   return (
     <div className="relative w-full">
@@ -8,6 +10,12 @@ const EditResume = () => {
        py-4 px-5"
       >
         <TopOption />
+        <div className="w-full mt-1">
+          <div className="flex flex-col lg:flex-row items-start w-full py-3 gap-6">
+            <ResumeForm />
+            <ResumePreview />
+          </div>
+        </div>
       </div>
     </div>
   );
