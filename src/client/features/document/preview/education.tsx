@@ -14,7 +14,7 @@ const Education = ({ isLoading, resumeInfo }: EducationProps) => {
   return (
     <div className="w-full my-5">
       <h5
-        className="text-center font-bold
+        className="font-bold
   mb-2
   "
         style={{ color: themeColor }}
