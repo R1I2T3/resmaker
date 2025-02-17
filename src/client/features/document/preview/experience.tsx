@@ -10,7 +10,6 @@ const Experience = ({ isLoading, resumeInfo }: ExperienceProps) => {
   const themeColor = resumeInfo?.themeColor || INITIAL_THEME_COLOR;
 
   if (isLoading) return <SkeletonLoader />;
-  console.log("This is resume info\n", resumeInfo);
   return (
     <div className="w-full my-5">
       <h5

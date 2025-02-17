@@ -20,7 +20,6 @@ const initialState = {
 
 const PersonalInfoForm = ({ handleNext }: { handleNext: () => void }) => {
   const { resumeInfo, onUpdate } = useResumeContext();
-  console.log(resumeInfo);
   const { mutateAsync, isPending } = useUpdateDocument();
   const [personalInfo, setPersonalInfo] =
     React.useState<PersonalInfoType>(initialState);

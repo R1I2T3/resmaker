@@ -136,7 +136,7 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
       if (!userId) {
         return c.json({ error: "unauthorized" }, { status: 401 });
       }
-      const result = await db.transaction(async (trx) => {
+      await db.transaction(async (trx) => {
         const [existingDocument] = await trx
           .select()
           .from(documentTable)
@@ -282,7 +282,6 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
           }
         }
       });
-      console.log(result);
       return c.json({ success: true, message: "Info Updated Successfully" });
     }
   )
