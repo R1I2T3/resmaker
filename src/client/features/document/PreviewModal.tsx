@@ -9,6 +9,7 @@ import {
 } from "@/client/components/ui/dialog";
 import { useResumeContext } from "@/client/providers/resume-info-provider";
 import { Eye, FileText } from "lucide-react";
+import ResumePreview from "./ResumePreview";
 const PreviewModal = () => {
   const { resumeInfo, isLoading } = useResumeContext();
   return (
@@ -55,7 +56,7 @@ const PreviewModal = () => {
             </DialogTitle>
           </DialogHeader>
           <div className="w-full h-full px-2 pb-4">
-            {/* <ResumePreview /> */}
+            <ResumePreview />
           </div>
         </DialogContent>
       </Dialog>

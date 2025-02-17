@@ -24,7 +24,7 @@ const ResumePreview = () => {
       }}
     >
       <PersonalInfo isLoading={isLoading} resumeInfo={resumeInfo} />
-      <Summary />
+      <Summary isLoading={isLoading} resumeInfo={resumeInfo} />
       <Experience isLoading={isLoading} resumeInfo={resumeInfo} />
       <Education isLoading={isLoading} resumeInfo={resumeInfo} />
       <Skill isLoading={isLoading} resumeInfo={resumeInfo} />
