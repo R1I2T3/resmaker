@@ -20,7 +20,11 @@ const initialState = {
 const EducationForm = ({ handleNext }: { handleNext: () => void }) => {
   const { resumeInfo, onUpdate } = useResumeContext();
   const { mutateAsync, isPending } = useUpdateDocument();
-  const [educationList, setEducationList] = useState([initialState]);
+  const [educationList, setEducationList] = useState(() => {
+    return resumeInfo?.educations?.length
+      ? resumeInfo.educations
+      : [initialState];
+  });
   useEffect(() => {
     if (!resumeInfo) return;
     onUpdate({

@@ -1,14 +1,71 @@
 "use client";
 import { useResumeContext } from "@/client/providers/resume-info-provider";
-import React from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import PersonalInfo from "./preview/personal-info";
 import Summary from "./preview/summary";
 import Experience from "./preview/experience";
 import Education from "./preview/education";
 import Skill from "./preview/skill";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import SortableResumeItem from "./SortableResumeItem";
+
 const ResumePreview = () => {
   const { resumeInfo, isLoading } = useResumeContext();
+  const [elements, setElements] = useState([
+    {
+      id: 1,
+      SortableElement: PersonalInfo,
+    },
+    {
+      id: 2,
+      SortableElement: Summary,
+    },
+    {
+      id: 3,
+      SortableElement: Experience,
+    },
+    {
+      id: 4,
+      SortableElement: Education,
+    },
+    {
+      id: 5,
+      SortableElement: Skill,
+    },
+  ]);
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (active.id !== over?.id) {
+      setElements((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over?.id);
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  }
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   return (
     <div
       id="resume-preview-id"
@@ -23,11 +80,27 @@ const ResumePreview = () => {
         borderTop: `13px solid ${resumeInfo?.themeColor}`,
       }}
     >
-      <PersonalInfo isLoading={isLoading} resumeInfo={resumeInfo} />
-      <Summary isLoading={isLoading} resumeInfo={resumeInfo} />
-      <Experience isLoading={isLoading} resumeInfo={resumeInfo} />
-      <Education isLoading={isLoading} resumeInfo={resumeInfo} />
-      <Skill isLoading={isLoading} resumeInfo={resumeInfo} />
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={elements.map((element) => element.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {elements.map((element) => (
+            <SortableResumeItem id={element.id} key={element.id}>
+              {
+                <element.SortableElement
+                  isLoading={isLoading}
+                  resumeInfo={resumeInfo}
+                />
+              }
+            </SortableResumeItem>
+          ))}
+        </SortableContext>
+      </DndContext>
     </div>
   );
 };
