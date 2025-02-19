@@ -70,7 +70,6 @@ const SummaryForm = ({ handleNext }: { handleNext: () => void }) => {
       const PROMPT = prompt.replace("{jobTitle}", jobTitle);
       const result = await AIChatSession.sendMessage(PROMPT);
       const responseText = await result.response.text();
-      console.log(responseText);
       setAiGeneratedSummary(JSON?.parse(responseText));
     } catch (error) {
       toast.error("Failed to generate summary");

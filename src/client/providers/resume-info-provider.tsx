@@ -20,12 +20,14 @@ export const ResumeInfoContext = createContext<ResumeContextType | undefined>(
 
 export const ResumeInfoProvider: FC<{
   children: React.ReactNode;
-}> = ({ children }) => {
+  isPublic?: boolean;
+}> = ({ children, isPublic = false }) => {
   const param = useParams();
   const documentId = param.documentId as string;
-
-  const { data, isSuccess, isLoading, isError, refetch } =
-    useGetDocumentById(documentId);
+  const { data, isSuccess, isLoading, isError, refetch } = useGetDocumentById(
+    documentId,
+    isPublic
+  );
 
   const [resumeInfo, setResumeInfo] = useState<ResumeDataType>();
 

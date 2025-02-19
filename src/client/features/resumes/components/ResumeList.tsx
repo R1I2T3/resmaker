@@ -14,12 +14,7 @@ const ResumeList = () => {
           className="
     flex items-center mx-5"
         >
-          <Loader
-            className="animate-spin text-black
-     dark:text-white
-     size-10
-     "
-          />
+          <Loader className="animate-spin text-black dark:text-white size-10" />
         </div>
       ) : isError ? (
         <div className="flex flex-col items-center mx-5">

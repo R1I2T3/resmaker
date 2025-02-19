@@ -26,7 +26,7 @@ const Share = () => {
   const { mutateAsync, isPending } = useUpdateDocument();
   const [copied, setCopied] = useState(false);
   const origin = useOrigin();
-  const url = `${origin}/preview/${documentId}/resume`;
+  const url = `${origin}/preview/${documentId}/`;
   const onCopy = () => {
     navigator.clipboard.writeText(url);
     setCopied(true);
@@ -61,9 +61,7 @@ const Share = () => {
             isLoading || resumeInfo?.status === "archived" ? true : false
           }
           variant="secondary"
-          className="bg-white border gap-1
-                   dark:bg-gray-800 !p-2
-                    lg:w-auto lg:p-4"
+          className="bg-white border gap-1 dark:bg-gray-800 !p-2 lg:w-auto lg:p-4"
         >
           <div className="flex items-center gap-1">
             <ShareIcon size="17px" />
@@ -80,11 +78,7 @@ const Share = () => {
       >
         {resumeInfo?.status === "public" ? (
           <div className="space-y-3">
-            <div
-              className="
-                        flex gap-x-2 items-center
-                      "
-            >
+            <div className="flex gap-x-2 items-center">
               <Globe size="15px" className="text-primary animate-pulse" />
               <p className="font-medium text-xs text-primary">
                 This resume is shareable, copy the link!
