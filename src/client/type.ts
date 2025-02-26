@@ -40,6 +40,15 @@ export type PersonalInfoType = {
   email?: string | null;
 };
 
+export type ProjectType = {
+  id?: string;
+  docId?: string | null;
+  title: string | null;
+  description: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  techUsed: string | null;
+};
 export type StatusType = "archived" | "private" | "public" | undefined;
 
 export type ResumeDataType = {
@@ -54,5 +63,6 @@ export type ResumeDataType = {
   experiences?: ExperienceType[] | null;
   educations?: EducationType[] | null;
   skills?: SkillType[] | null;
+  projects?: ProjectType[] | null;
   updatedAt?: string;
 };

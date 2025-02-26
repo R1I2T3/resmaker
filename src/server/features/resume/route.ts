@@ -16,6 +16,7 @@ import { personalInfoTable } from "@/server/db/schema";
 import { experienceTable } from "@/server/db/schema";
 import { educationTable } from "@/server/db/schema";
 import { skillsTable } from "@/server/db/schema";
+import { projectTable } from "@/server/db/schema";
 export const resumesRoutes = new Hono<{ Variables: Variables }>()
   .use("*", async (c, next) => {
     const session = await auth.api.getSession({ headers: c.req.raw.headers });
@@ -131,6 +132,7 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
         experience,
         education,
         skills,
+        projects,
       } = c.req.valid("json");
       const userId = c.get("user")?.id;
       if (!userId) {
@@ -274,6 +276,36 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
               existingSkillsMap.delete(id);
             } else {
               await trx.insert(skillsTable).values({
+                id: crypto.randomUUID(),
+                docId: existingDocument.id,
+                ...data,
+              });
+            }
+          }
+        }
+        if (projects && Array.isArray(projects)) {
+          const existingProjects = await trx
+            .select()
+            .from(projectTable)
+            .where(eq(projectTable.docId, existingDocument.id));
+          const existingProjectsMap = new Set(
+            existingProjects.map((project) => project.id)
+          );
+          for (const project of projects) {
+            const { id, ...data } = project;
+            if (id && existingProjectsMap.has(id)) {
+              await trx
+                .update(projectTable)
+                .set(data)
+                .where(
+                  and(
+                    eq(skillsTable.docId, existingDocument.id),
+                    eq(skillsTable.id, id)
+                  )
+                );
+              existingProjectsMap.delete(id);
+            } else {
+              await trx.insert(projectTable).values({
                 id: crypto.randomUUID(),
                 docId: existingDocument.id,
                 ...data,

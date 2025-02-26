@@ -10,6 +10,7 @@ import SkillForm from "./forms/SkillForm";
 import EducationForm from "./forms/EducationForm";
 import ExperienceForm from "./forms/ExperienceForm";
 import { useState } from "react";
+import ProjectForm from "./forms/ProjectForm";
 const ResumeForm = () => {
   const { resumeInfo } = useResumeContext();
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -54,7 +55,7 @@ const ResumeForm = () => {
             size="default"
             className="!px-2 !py-1 !h-auto"
             disabled={
-              activeFormIndex === 5 || resumeInfo?.status === "archived"
+              activeFormIndex === 6 || resumeInfo?.status === "archived"
                 ? true
                 : false
             }
@@ -74,8 +75,8 @@ const ResumeForm = () => {
           {activeFormIndex === 3 && <ExperienceForm handleNext={handleNext} />}
 
           {activeFormIndex === 4 && <EducationForm handleNext={handleNext} />}
-
-          {activeFormIndex === 5 && <SkillForm />}
+          {activeFormIndex === 5 && <ProjectForm handleNext={handleNext} />}
+          {activeFormIndex === 6 && <SkillForm />}
         </div>
       </div>
     </div>

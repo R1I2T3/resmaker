@@ -23,6 +23,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import SortableResumeItem from "./SortableResumeItem";
+import Project from "./preview/project";
 
 const ResumePreview = () => {
   const { resumeInfo, isLoading } = useResumeContext();
@@ -41,13 +42,18 @@ const ResumePreview = () => {
     },
     {
       id: 4,
-      SortableElement: Education,
+      SortableElement: Project,
     },
     {
       id: 5,
+      SortableElement: Education,
+    },
+    {
+      id: 6,
       SortableElement: Skill,
     },
   ]);
+  console.log(resumeInfo);
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (active.id !== over?.id) {
