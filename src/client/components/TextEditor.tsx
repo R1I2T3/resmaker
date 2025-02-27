@@ -20,20 +20,21 @@ import { AIChatSession } from "@/client/lib/ai";
 import { toast } from "sonner";
 const PROMPT = `Given the job title "{jobTitle}",
  create 6-7 concise and personal bullet points in
-  HTML stringify format that highlight my key
-  skills, relevant technologies, and significant
-   contributions in that role. Do not include
-    the job title itself in the output. Provide
-     only the bullet points inside an unordered
-     list.`;
+ HTML stringify format that highlight my key
+ skills, relevant technologies, and significant
+ contributions in that role. Do not include
+ the job title itself in the output. Provide
+ only the bullet points inside an unordered
+ list.`;
 
 const RichTextEditor = (props: {
   jobTitle: string | null;
   initialValue: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onEditorChange: (e: any) => void;
+  isProject?: boolean;
 }) => {
-  const { jobTitle, initialValue, onEditorChange } = props;
+  const { jobTitle, initialValue, onEditorChange, isProject } = props;
 
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(initialValue || "");
@@ -66,7 +67,7 @@ const RichTextEditor = (props: {
         className="flex items-center 
       justify-between my-2"
       >
-        <Label>Work Summary</Label>
+        <Label>{!isProject ? "Work Summary" : "Project Description"}</Label>
         <Button
           variant="outline"
           type="button"
@@ -76,7 +77,7 @@ const RichTextEditor = (props: {
         >
           <>
             <Sparkles size="15px" className="text-orange-500" />
-            Generate with AI
+            Enhance with AI
           </>
           {loading && <Loader size="13px" className="animate-spin" />}
         </Button>

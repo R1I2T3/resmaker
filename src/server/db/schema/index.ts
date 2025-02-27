@@ -23,6 +23,6 @@ export {
 } from "./education";
 export { skillsTable, skillsRelations, skillsTableSchema } from "./skills";
 
-export { projectTable, projectTableSchema } from "./project";
+export { projectTable, projectTableSchema, projectRelation } from "./project";
 
 export { certificateTable, certificationTableSchema } from "./certificate";

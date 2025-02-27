@@ -182,6 +182,7 @@ const ExperienceForm = ({ handleNext }: { handleNext: () => void }) => {
                     onEditorChange={(value: string) =>
                       handEditor(value, "workSummary", index)
                     }
+                    isProject={false}
                   />
                 </div>
                 {index === experienceList.length - 1 &&

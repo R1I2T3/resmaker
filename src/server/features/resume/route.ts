@@ -81,6 +81,7 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
         experiences: true,
         educations: true,
         skills: true,
+        projects: true,
       },
     });
     if (!data) {

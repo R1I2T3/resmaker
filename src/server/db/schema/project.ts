@@ -2,6 +2,7 @@ import { pgTable, uuid, varchar, text, date } from "drizzle-orm/pg-core";
 import { documentTable } from "./document";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { relations } from "drizzle-orm";
 export const projectTable = pgTable("projects", {
   id: uuid("id").notNull().primaryKey(),
   docId: uuid("document_id")
@@ -16,6 +17,12 @@ export const projectTable = pgTable("projects", {
   techUsed: text("tech_used"),
 });
 
+export const projectRelation = relations(projectTable, ({ one }) => ({
+  document: one(documentTable, {
+    fields: [projectTable.docId],
+    references: [documentTable.id],
+  }),
+}));
 export const projectTableSchema = createInsertSchema(projectTable, {
   id: z.string().optional(),
 }).pick({

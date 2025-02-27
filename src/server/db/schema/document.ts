@@ -13,7 +13,7 @@ import { experienceTable, experienceTableSchema } from "./experience";
 import { educationTable, educationTableSchema } from "./education";
 import { skillsTable, skillsTableSchema } from "./skills";
 import { createInsertSchema } from "drizzle-zod";
-import { projectTableSchema } from "./project";
+import { projectTableSchema, projectTable } from "./project";
 import { z } from "zod";
 
 export const statusEnum = pgEnum("status", ["archived", "private", "public"]);
@@ -41,6 +41,7 @@ export const documentRelations = relations(documentTable, ({ one, many }) => {
     experiences: many(experienceTable),
     educations: many(educationTable),
     skills: many(skillsTable),
+    projects: many(projectTable),
   };
 });
 

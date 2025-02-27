@@ -32,6 +32,7 @@ app.on(["POST", "GET"], "*", (c) => {
   return auth.handler(c.req.raw);
 });
 app.onError((err, c) => {
+  console.error(err);
   if (err instanceof HTTPException) {
     return err.getResponse();
   }

@@ -62,12 +62,12 @@ const ProjectForm = ({ handleNext }: { handleNext: () => void }) => {
   };
   const handEditor = (value: string, name: string, index: number) => {
     setProjectList((prevState) => {
-      const newExperienceList = [...prevState];
-      newExperienceList[index] = {
-        ...newExperienceList[index],
+      const newProjectList = [...prevState];
+      newProjectList[index] = {
+        ...newProjectList[index],
         [name]: value,
       };
-      return newExperienceList;
+      return newProjectList;
     });
   };
   const removeProject = (index: number) => {
@@ -99,7 +99,7 @@ const ProjectForm = ({ handleNext }: { handleNext: () => void }) => {
                   </Button>
                 )}
                 <div>
-                  <Label className="text-sm">Position title</Label>
+                  <Label className="text-sm">Project title</Label>
                   <Input
                     name="title"
                     placeholder=""
@@ -146,8 +146,9 @@ const ProjectForm = ({ handleNext }: { handleNext: () => void }) => {
                     jobTitle={project.title}
                     initialValue={project.description || ""}
                     onEditorChange={(value: string) =>
-                      handEditor(value, "workSummary", index)
+                      handEditor(value, "description", index)
                     }
+                    isProject
                   />
                 </div>
                 {index === projectList.length - 1 && projectList.length < 5 && (

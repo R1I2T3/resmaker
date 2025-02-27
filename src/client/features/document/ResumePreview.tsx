@@ -53,7 +53,6 @@ const ResumePreview = () => {
       SortableElement: Skill,
     },
   ]);
-  console.log(resumeInfo);
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (active.id !== over?.id) {
