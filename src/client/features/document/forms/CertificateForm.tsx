@@ -1,10 +1,11 @@
 import { useResumeContext } from "@/client/providers/resume-info-provider";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useUpdateDocument from "../../resumes/hooks/use-update-document";
 import { Button } from "@/client/components/ui/button";
 import { X, Plus, Loader } from "lucide-react";
 import { Label } from "@/client/components/ui/label";
 import { Input } from "@/client/components/ui/input";
+import { generateThumbnail } from "@/client/helper";
 
 const initialState = {
   id: "",
@@ -20,8 +21,27 @@ const CertificateForm = () => {
     ...(resumeInfo?.certificates || []),
     initialState,
   ]);
+  useEffect(() => {
+    if (!resumeInfo) {
+      return;
+    }
+    onUpdate({
+      ...resumeInfo,
+      certificates: certificateList,
+    });
+  }, [certificateList]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const thumbnail = await generateThumbnail();
+    console.log(certificateList);
+    await mutateAsync({
+      ...Object.fromEntries(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        Object.entries(resumeInfo || {}).filter(([_, v]) => v !== null)
+      ),
+      certificates: certificateList,
+      thumbnail: thumbnail || undefined,
+    });
   };
   const removeCertificate = (index: number) => {
     const updatedCertificate = [...certificateList];

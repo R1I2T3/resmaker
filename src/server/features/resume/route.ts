@@ -17,6 +17,7 @@ import { experienceTable } from "@/server/db/schema";
 import { educationTable } from "@/server/db/schema";
 import { skillsTable } from "@/server/db/schema";
 import { projectTable } from "@/server/db/schema";
+import { certificateTable } from "@/server/db/schema";
 export const resumesRoutes = new Hono<{ Variables: Variables }>()
   .use("*", async (c, next) => {
     const session = await auth.api.getSession({ headers: c.req.raw.headers });
@@ -134,6 +135,7 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
         education,
         skills,
         projects,
+        certificates,
       } = c.req.valid("json");
       const userId = c.get("user")?.id;
       if (!userId) {
@@ -307,6 +309,36 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
               existingProjectsMap.delete(id);
             } else {
               await trx.insert(projectTable).values({
+                id: crypto.randomUUID(),
+                docId: existingDocument.id,
+                ...data,
+              });
+            }
+          }
+        }
+        if (certificates && Array.isArray(certificates)) {
+          const existingCertificates = await trx
+            .select()
+            .from(certificateTable)
+            .where(eq(certificateTable.docId, existingDocument.id));
+          const existingCertificatesMap = new Set(
+            existingCertificates.map((certificate) => certificate.id)
+          );
+          for (const certificate of certificates) {
+            const { id, ...data } = certificate;
+            if (id && existingCertificatesMap.has(id)) {
+              await trx
+                .update(certificateTable)
+                .set(data)
+                .where(
+                  and(
+                    eq(certificateTable.docId, existingDocument.id),
+                    eq(certificateTable.id, id)
+                  )
+                );
+              existingCertificatesMap.delete(id);
+            } else {
+              await trx.insert(certificateTable).values({
                 id: crypto.randomUUID(),
                 docId: existingDocument.id,
                 ...data,
