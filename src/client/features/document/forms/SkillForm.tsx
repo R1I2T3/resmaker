@@ -10,7 +10,7 @@ const initialState = {
   name: "",
   rating: 0,
 };
-const SkillForm = () => {
+const SkillForm = ({ handleNext }: { handleNext: () => void }) => {
   const { resumeInfo, onUpdate } = useResumeContext();
   const { mutateAsync, isPending } = useUpdateDocument();
   const [skillsList, setSkillsList] = useState([
@@ -53,11 +53,18 @@ const SkillForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const thumbnail = await generateThumbnail();
-    await mutateAsync({
-      currentPosition: 1,
-      thumbnail: thumbnail,
-      skills: skillsList,
-    });
+    await mutateAsync(
+      {
+        currentPosition: 1,
+        thumbnail: thumbnail,
+        skills: skillsList,
+      },
+      {
+        onSuccess: () => {
+          handleNext();
+        },
+      }
+    );
   };
   return (
     <div>
@@ -73,11 +80,7 @@ const SkillForm = () => {
         >
           {skillsList.map((item, index) => (
             <div key={index}>
-              <div
-                className="relative flex 
-            items-center 
-justify-between mb-5 pt-4 gap-3"
-              >
+              <div className="relative flex items-center justify-between mb-5 pt-4 gap-3">
                 {skillsList?.length > 1 && (
                   <Button
                     variant="secondary"
