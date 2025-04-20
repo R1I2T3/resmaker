@@ -110,7 +110,7 @@ const SummaryForm = ({ handleNext }: { handleNext: () => void }) => {
               onClick={() => GenerateSummaryFromAI()}
             >
               <Sparkles size="15px" className="text-orange-500" />
-              Generate with AI
+              Enhance with AI
             </Button>
           </div>
           <Textarea

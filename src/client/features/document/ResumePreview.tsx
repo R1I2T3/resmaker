@@ -24,6 +24,7 @@ import {
 } from "@dnd-kit/sortable";
 import SortableResumeItem from "./SortableResumeItem";
 import Project from "./preview/project";
+import Certificate from "./preview/certificate";
 
 const ResumePreview = () => {
   const { resumeInfo, isLoading } = useResumeContext();
@@ -51,6 +52,10 @@ const ResumePreview = () => {
     {
       id: 6,
       SortableElement: Skill,
+    },
+    {
+      id: 7,
+      SortableElement: Certificate,
     },
   ]);
   function handleDragEnd(event: DragEndEvent) {

@@ -19,18 +19,17 @@ const Skill = ({ resumeInfo, isLoading }: SkillProps) => {
       </h5>
       <hr className="border-[1.5px] my-2" style={{ borderColor: themeColor }} />
 
-      <div className="grid grid-cols-2  gap-3 pt-3 my-1 min-h-9">
+      <div className="grid grid-cols-4 gap-4 pt-4 my-2 min-h-9 list-disc">
         {resumeInfo?.skills?.map((skill, index) => (
           <div
             key={index}
-            className="flex
-       items-center justify-between"
+            className="flex items-center justify-between bg-gray-100 p-2 rounded-md shadow-sm"
           >
-            <h5 className="text-[13px]">{skill?.name}</h5>
+            <h5 className="text-sm font-medium text-gray-700">{skill?.name}</h5>
             {skill?.rating && skill?.name ? (
-              <div className="h2 bg-gray-200 w-[120px]">
+              <div className="relative w-[120px] h-2 bg-gray-300 rounded-full overflow-hidden">
                 <div
-                  className="h-2"
+                  className="absolute top-0 left-0 h-full rounded-full"
                   style={{
                     background: themeColor,
                     width: skill?.rating * 20 + "%",
