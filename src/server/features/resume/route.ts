@@ -63,7 +63,7 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
       .where(
         and(
           eq(documentTable.userId, user.id),
-          ne(documentTable.userId, user.id)
+          ne(documentTable.status, "archived")
         )
       )
       .orderBy(desc(documentTable.createdAt));
@@ -391,7 +391,12 @@ export const resumesRoutes = new Hono<{ Variables: Variables }>()
     const documents = await db
       .select()
       .from(documentTable)
-      .where(eq(documentTable.userId, userId));
+      .where(
+        and(
+          eq(documentTable.userId, userId),
+          eq(documentTable.status, "archived")
+        )
+      );
     return c.json({
       success: true,
       data: documents,

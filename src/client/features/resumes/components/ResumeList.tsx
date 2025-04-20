@@ -5,7 +5,7 @@ import React, { Fragment } from "react";
 import ResumeItem from "./ResumeItem";
 import { ResumeType } from "./ResumeItem";
 const ResumeList = () => {
-  const { data, isLoading, isError, refetch } = useGetDocuments(true);
+  const { data, isLoading, isError, refetch } = useGetDocuments(false);
   const resumes = data?.data ?? [];
   return (
     <Fragment>
@@ -25,17 +25,19 @@ const ResumeList = () => {
         </div>
       ) : (
         <>
-          {resumes?.map((resume: ResumeType) => (
-            <ResumeItem
-              key={resume.id}
-              id={resume.id}
-              title={resume.title}
-              status={resume.status}
-              updatedAt={resume.updatedAt}
-              themeColor={resume.themeColor}
-              thumbnail={resume.thumbnail}
-            />
-          ))}
+          {resumes
+            ?.filter((resume) => resume.status !== "archived")
+            .map((resume: ResumeType) => (
+              <ResumeItem
+                key={resume.id}
+                id={resume.id}
+                title={resume.title}
+                status={resume.status}
+                updatedAt={resume.updatedAt}
+                themeColor={resume.themeColor}
+                thumbnail={resume.thumbnail}
+              />
+            ))}
         </>
       )}
     </Fragment>

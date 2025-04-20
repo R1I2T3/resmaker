@@ -17,7 +17,7 @@ import useRestore from "../hooks/use-restore";
 import { toast } from "sonner";
 const TrashListBox = () => {
   const router = useRouter();
-  const { data, isLoading } = useGetDocuments(false);
+  const { data, isLoading } = useGetDocuments(true);
   const { mutateAsync, isPending } = useRestore();
   const [search, setSearch] = useState<string>("");
   const resumes = data?.data ?? [];
