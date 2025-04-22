@@ -2,9 +2,9 @@ import { useResumeContext } from "@/client/providers/resume-info-provider";
 import React, { useState, useCallback } from "react";
 import useUpdateDocument from "../../resumes/hooks/use-update-document";
 import { ResumeDataType } from "@/client/type";
-import { toast } from "sonner";
-import { AIChatSession } from "@/client/lib/ai";
-import { Loader, Sparkles } from "lucide-react";
+// import { toast } from "sonner";
+// import { AIChatSession } from "@/client/lib/ai";
+import { Loader } from "lucide-react";
 import { Button } from "@/client/components/ui/button";
 import { Label } from "@/client/components/ui/label";
 import { Textarea } from "@/client/components/ui/textarea";
@@ -21,17 +21,17 @@ interface GeneratesSummaryType {
   experienced: string;
 }
 
-const prompt = `Job Title: {jobTitle}. Based on the job title, please generate concise 
-and complete summaries for my resume in JSON format, incorporating the following experience
-levels: fresher, mid, and experienced. Each summary should be limited to 3 to 4 lines,
-reflecting a personal tone and showcasing specific relevant programming languages, technologies,
-frameworks, and methodologies without any placeholders or gaps. Ensure that the summaries are
-engaging and tailored to highlight unique strengths, aspirations, and contributions to collaborative
-projects, demonstrating a clear understanding of the role and industry standards.`;
+// const prompt = `Job Title: {jobTitle}. Based on the job title, please generate concise
+// and complete summaries for my resume in JSON format, incorporating the following experience
+// levels: fresher, mid, and experienced. Each summary should be limited to 3 to 4 lines,
+// reflecting a personal tone and showcasing specific relevant programming languages, technologies,
+// frameworks, and methodologies without any placeholders or gaps. Ensure that the summaries are
+// engaging and tailored to highlight unique strengths, aspirations, and contributions to collaborative
+// projects, demonstrating a clear understanding of the role and industry standards.`;
 const SummaryForm = ({ handleNext }: { handleNext: () => void }) => {
   const { resumeInfo, onUpdate } = useResumeContext();
   const { mutateAsync, isPending } = useUpdateDocument();
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [aiGeneratedSummary, setAiGeneratedSummary] =
     useState<GeneratesSummaryType | null>(null);
   const handleChange = (e: { target: { value: string } }) => {
@@ -62,22 +62,22 @@ const SummaryForm = ({ handleNext }: { handleNext: () => void }) => {
       }
     );
   };
-  const GenerateSummaryFromAI = async () => {
-    try {
-      const jobTitle = resumeInfo?.personalInfo?.jobTitle;
-      if (!jobTitle) return;
-      setLoading(true);
-      const PROMPT = prompt.replace("{jobTitle}", jobTitle);
-      const result = await AIChatSession.sendMessage(PROMPT);
-      const responseText = await result.response.text();
-      setAiGeneratedSummary(JSON?.parse(responseText));
-    } catch (error) {
-      toast.error("Failed to generate summary");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const GenerateSummaryFromAI = async () => {
+  //   try {
+  //     const jobTitle = resumeInfo?.personalInfo?.jobTitle;
+  //     if (!jobTitle) return;
+  //     setLoading(true);
+  //     const PROMPT = prompt.replace("{jobTitle}", jobTitle);
+  //     const result = await AIChatSession.sendMessage(PROMPT);
+  //     const responseText = await result.response.text();
+  //     setAiGeneratedSummary(JSON?.parse(responseText));
+  //   } catch (error) {
+  //     toast.error("Failed to generate summary");
+  //     console.error(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleSelect = useCallback(
     (summary: string) => {
@@ -102,7 +102,7 @@ const SummaryForm = ({ handleNext }: { handleNext: () => void }) => {
         <form onSubmit={handleSubmit}>
           <div className="flex items-end justify-between">
             <Label>Add Summary</Label>
-            <Button
+            {/* <Button
               variant="outline"
               type="button"
               className="gap-1"
@@ -111,7 +111,7 @@ const SummaryForm = ({ handleNext }: { handleNext: () => void }) => {
             >
               <Sparkles size="15px" className="text-orange-500" />
               Enhance with AI
-            </Button>
+            </Button> */}
           </div>
           <Textarea
             className="mt-5 min-h-36"

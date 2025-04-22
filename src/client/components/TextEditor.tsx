@@ -13,19 +13,19 @@ import {
   BtnLink,
 } from "react-simple-wysiwyg";
 import { Label } from "./ui/label";
-import { Button } from "./ui/button";
-import { Loader, Sparkles } from "lucide-react";
+// import { Button } from "./ui/button";
+// import { Loader, Sparkles } from "lucide-react";
 
-import { AIChatSession } from "@/client/lib/ai";
-import { toast } from "sonner";
-const PROMPT = `Given the job title "{jobTitle}",
- create 6-7 concise and personal bullet points in
- HTML stringify format that highlight my key
- skills, relevant technologies, and significant
- contributions in that role. Do not include
- the job title itself in the output. Provide
- only the bullet points inside an unordered
- list.`;
+// import { AIChatSession } from "@/client/lib/ai";
+// import { toast } from "sonner";
+// const PROMPT = `Given the job title "{jobTitle}",
+//  create 6-7 concise and personal bullet points in
+//  HTML stringify format that highlight my key
+//  skills, relevant technologies, and significant
+//  contributions in that role. Do not include
+//  the job title itself in the output. Provide
+//  only the bullet points inside an unordered
+//  list.`;
 
 const RichTextEditor = (props: {
   jobTitle: string | null;
@@ -34,32 +34,32 @@ const RichTextEditor = (props: {
   onEditorChange: (e: any) => void;
   isProject?: boolean;
 }) => {
-  const { jobTitle, initialValue, onEditorChange, isProject } = props;
+  const { initialValue, onEditorChange, isProject } = props;
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [value, setValue] = useState(initialValue || "");
 
-  const GenerateSummaryFromAI = async () => {
-    try {
-      if (!jobTitle) {
-        toast.error("Please provide a job title to generate summary");
-        return;
-      }
-      setLoading(true);
-      const prompt = PROMPT.replace("{jobTitle}", jobTitle);
-      const result = await AIChatSession.sendMessage(prompt);
-      const responseText = await result.response.text();
-      const validJsonArray = JSON.parse(`[${responseText}]`);
+  // const GenerateSummaryFromAI = async () => {
+  //   try {
+  //     if (!jobTitle) {
+  //       toast.error("Please provide a job title to generate summary");
+  //       return;
+  //     }
+  //     setLoading(true);
+  //     const prompt = PROMPT.replace("{jobTitle}", jobTitle);
+  //     const result = await AIChatSession.sendMessage(prompt);
+  //     const responseText = await result.response.text();
+  //     const validJsonArray = JSON.parse(`[${responseText}]`);
 
-      setValue(validJsonArray?.[0]);
-      onEditorChange(validJsonArray?.[0]);
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to generate summary");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setValue(validJsonArray?.[0]);
+  //     onEditorChange(validJsonArray?.[0]);
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Failed to generate summary");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div>
@@ -68,7 +68,7 @@ const RichTextEditor = (props: {
       justify-between my-2"
       >
         <Label>{!isProject ? "Work Summary" : "Project Description"}</Label>
-        <Button
+        {/* <Button
           variant="outline"
           type="button"
           className="gap-1"
@@ -80,7 +80,7 @@ const RichTextEditor = (props: {
             Enhance with AI
           </>
           {loading && <Loader size="13px" className="animate-spin" />}
-        </Button>
+        </Button> */}
       </div>
 
       <EditorProvider>
